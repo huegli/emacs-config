@@ -8,12 +8,6 @@
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
-(when (< emacs-major-version 29)
-  (unless (package-installed-p 'use-package)
-    (unless package-archive-contents
-      (package-refresh-contents))
-    (package-install 'use-package)))
-
 (add-to-list 'display-buffer-alist
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
                (display-buffer-no-window)
@@ -70,7 +64,7 @@ The DWIM behaviour of this command is as follows:
 (use-package modus-themes
   :ensure t
   :config
-  (load-theme 'modus-vivendi-tinted :no-confirm-loading))
+  (load-theme 'modus-vivendi :no-confirm-loading))
 
 ;; Remember to do M-x and run `nerd-icons-install-fonts' to get the
 ;; font files.  Then restart Emacs to see the effect.
@@ -96,9 +90,9 @@ The DWIM behaviour of this command is as follows:
 
 ;;; Configure the minibuffer and completions
 
-(use-package vertico
-  :ensure t
-  :hook (after-init . vertico-mode))
+;; (use-package vertico
+;;   :ensure t
+;;   :hook (after-init . vertico-mode))
 
 (use-package marginalia
   :ensure t
@@ -115,22 +109,22 @@ The DWIM behaviour of this command is as follows:
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))
 
-(use-package corfu
-  :ensure t
-  :hook (after-init . global-corfu-mode)
-  :bind (:map corfu-map ("<tab>" . corfu-complete))
-  :config
-  (setq tab-always-indent 'complete)
-  (setq corfu-preview-current nil)
-  (setq corfu-min-width 20)
+;; (use-package corfu
+;;   :ensure t
+;;   :hook (after-init . global-corfu-mode)
+;;   :bind (:map corfu-map ("<tab>" . corfu-complete))
+;;   :config
+;;   (setq tab-always-indent 'complete)
+;;   (setq corfu-preview-current nil)
+;;   (setq corfu-min-width 20)
 
-  (setq corfu-popupinfo-delay '(1.25 . 0.5))
-  (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
+;;   (setq corfu-popupinfo-delay '(1.25 . 0.5))
+;;   (corfu-popupinfo-mode 1) ; shows documentation after `corfu-popupinfo-delay'
 
-  ;; Sort by input history (no need to modify `corfu-sort-function').
-  (with-eval-after-load 'savehist
-    (corfu-history-mode 1)
-    (add-to-list 'savehist-additional-variables 'corfu-history)))
+;;   ;; Sort by input history (no need to modify `corfu-sort-function').
+;;   (with-eval-after-load 'savehist
+;;     (corfu-history-mode 1)
+;;     (add-to-list 'savehist-additional-variables 'corfu-history)))
 
 ;;; The file manager (Dired)
 
@@ -166,3 +160,8 @@ The DWIM behaviour of this command is as follows:
   (setq trashed-use-header-line t)
   (setq trashed-sort-key '("Date deleted" . t))
   (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
+
+(use-package which-key
+  :ensure nil
+  :config
+  (which-key-mode)
