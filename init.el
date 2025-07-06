@@ -61,11 +61,11 @@ The DWIM behaviour of this command is as follows:
 (scroll-bar-mode 1)
 (tool-bar-mode -1)
 
-(let ((mono-spaced-font "Monospace")
-      (proportionately-spaced-font "Sans"))
-  (set-face-attribute 'default nil :family mono-spaced-font :height 100)
+(let ((mono-spaced-font "MonoLisa")
+      (proportionately-spaced-font "Atkinson Hyperledgible"))
+  (set-face-attribute 'default nil :family mono-spaced-font :height 140)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-  (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0))
+  (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.2))
 
 (use-package modus-themes
   :ensure t
