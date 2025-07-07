@@ -3,3 +3,5 @@ elpa
 eln-cache
 history
 auto-save-list
+url/**
+recentf.eld
