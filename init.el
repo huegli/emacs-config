@@ -13,9 +13,44 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
-;;; Functions
+;;; Mac OSX Stuff
+(when (eq system-type 'darwin)
+  
+  ;; Prevent macOS from creating new frames
+  (setq ns-pop-up-frames nil)
+  
+  ;; Improve font rendering
+  (setq ns-use-thin-smoothing t))
 
-(defun prot/keyboard-quit-dwim ()
+;;; Basic behaviour
+
+(use-package emacs
+  :ensure nil
+  :bind
+  (("C-g" . #'prot/keyboard-quit-dwim)
+   ("M-i" . imenu)
+   ("M-o" . other-window)
+   ("C-x C-b" . ibuffer))
+  :config
+  (setq-default indent-tabs-mode nil)
+  :custom
+  ;; Smooth scrolling
+  (pixel-scroll-precision-mode 1)
+  ;; Better default modes
+  (electric-pair-mode t)
+  (show-paren-mode 1)
+  (save-place-mode t)
+  (savehist-mode t)
+  (recentf-mode t)
+  (global-auto-revert-mode t)
+  ;; imenu configuration: https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html
+  (imenu-flatten 'group)
+  (imenu-auto-rescan t)
+  (imenu-auto-rescan-maxout (* 1024 1024))
+  (imenu-max-index-time 2)
+  :init
+  ;; From Prot's init.el
+  (defun prot/keyboard-quit-dwim ()
   "Do-What-I-Mean behaviour for a general `keyboard-quit'.
 
 The generic `keyboard-quit' does not do the expected thing when
@@ -37,17 +72,12 @@ The DWIM behaviour of this command is as follows:
    ((> (minibuffer-depth) 0)
     (abort-recursive-edit))
    (t
-    (keyboard-quit))))
+    (keyboard-quit)))))
 
-;;; Basic behaviour
-
-(use-package emacs
+(use-package elisp-mode
   :ensure nil
-  :bind
-  (("C-g" . #'prot/keyboard-quit-dwim)
-   ("M-i" . imenu)
-   ("M-o" . other-window)
-   ("C-x C-b" . ibuffer)))
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'imenu-add-menubar-index))
 
 (use-package delsel
   :ensure nil
