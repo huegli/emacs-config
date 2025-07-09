@@ -13,13 +13,7 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
-
-
-;;; Basic behaviour
-
-(use-package delsel
-  :ensure nil
-  :hook (after-init . delete-selection-mode))
+;;; Functions
 
 (defun prot/keyboard-quit-dwim ()
   "Do-What-I-Mean behaviour for a general `keyboard-quit'.
@@ -45,6 +39,8 @@ The DWIM behaviour of this command is as follows:
    (t
     (keyboard-quit))))
 
+;;; Basic behaviour
+
 (use-package emacs
   :ensure nil
   :bind
@@ -53,7 +49,9 @@ The DWIM behaviour of this command is as follows:
    ("M-o" . other-window)
    ("C-x C-b" . ibuffer)))
 
-;;; Tweak the looks of Emacs
+(use-package delsel
+  :ensure nil
+  :hook (after-init . delete-selection-mode))
 
 (use-package nerd-icons
   :ensure t)
