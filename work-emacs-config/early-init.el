@@ -8,7 +8,7 @@
       (proportionately-spaced-font "Atkinson Hyperledgible"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-  (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.1))
+  (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.2))
 
 ;; https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
 

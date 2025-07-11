@@ -1,3 +1,14 @@
+;;; init.el --- Emacs Configuration for my Work Macbook Pro  --- Init  -*- lexical-binding: t; -*-
+;;
+;; Author: Nikolai Schlegel
+;;
+
+;;; Commentary:
+;;  Init configuration for Emacs
+;;
+
+;;; Code:
+
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-is-missing)
 
@@ -20,12 +31,68 @@
   (setq ns-pop-up-frames nil)
   
   ;; Improve font rendering
-  (setq ns-use-thin-smoothing t))
+  (setq ns-use-thin-smoothing t)
 
-;;; Functions
+  ;; use GNU ls
+  (setq insert-directory-program "gls"))
 
-(defun prot/keyboard-quit-dwim ()
-  "Do-What-I-Mean behaviour for a general `keyboard-quit'.
+;;; Basic behaviour
+
+(use-package emacs
+  :ensure nil
+  :bind
+  (("C-g" . #'prot/keyboard-quit-dwim)
+   ("M-i" . imenu)
+   ("M-o" . other-window)
+   ("M-g r" . recentf-open-files)
+   ("C-x C-b" . ibuffer))
+  :config
+  (setq-default indent-tabs-mode nil)
+  :custom
+  ;; Smooth scrolling
+  (pixel-scroll-precision-mode 1)
+  (pixel-scroll-precision-use-momentum t)
+  ;; UI enhancements
+  (inhibit-startup-messate t)
+  (initial-scratch-message "")
+  (column-number-mode nil)
+  (line-number-mode nil)
+  (help-window-select t)
+  (read-answer-short t)
+  (use-short-answers t)
+  (use-dialog-box nil)
+  (truncate-lines t)
+  (kill-do-not-save-duplicates t) ; avoid multiple entries in the kill ring that are the same
+  (display-line-numbers-width 3) ; mininum width for line numbers
+  (display-line-numbers-widen t) ; don't change line numbers for narrowing
+  ;; basic completion settings
+  (completion-ignore-case t)
+  (completions-detailed t)
+  (completion-cycle-threshold 5)
+  ;; no sound or visual bell
+  (ring-bell-function 'ignore)
+  (visible-bell nil)
+  ;; no backup files
+  (create-lockfiles nil)
+  (make-backup-files nil)
+  (backup-inhibited t)
+  ;; dired related
+  (find-ls-option '("-exec ls -ldh {} +" . "-ldh"))
+  (global-auto-revert-non-file-buffers t) ; automatically updates dired buffers
+  (auto-revert-verbose nil) ; no message on auto-revert
+  ;; recentf configuration
+  (recentf-max-saved-items 300)
+  (recentf-max-menu-items 15)
+  (recentf-auto-cleanup 300) ;; (if (daemonp) 300 'never))
+  (recentf-exclude (list "^/\\(?:ssh\\|su\\|sudo\\)?:"))
+  ;; imenu configuration: https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html
+  (imenu-flatten 'group)
+  (imenu-auto-rescan t)
+  (imenu-auto-rescan-maxout (* 1024 1024))
+  (imenu-max-index-time 2)
+  :config
+  (defun prot/keyboard-quit-dwim ()
+    "Do-What-I-Mean behaviour for a general `keyboard-quit'.
 
 The generic `keyboard-quit' does not do the expected thing when
 the minibuffer is open.  Whereas we want it to close the
@@ -37,31 +104,24 @@ The DWIM behaviour of this command is as follows:
 - When a minibuffer is open, but not focused, close the minibuffer.
 - When the Completions buffer is selected, close it.
 - In every other case use the regular `keyboard-quit'."
-  (interactive)
-  (cond
-   ((region-active-p)
-    (keyboard-quit))
-   ((derived-mode-p 'completion-list-mode)
-    (delete-completion-window))
-   ((> (minibuffer-depth) 0)
-    (abort-recursive-edit))
-   (t
-    (keyboard-quit))))
+    (interactive)
+    (cond
+     ((region-active-p)
+      (keyboard-quit))
+     ((derived-mode-p 'completion-list-mode)
+      (delete-completion-window))
+     ((> (minibuffer-depth) 0)
+      (abort-recursive-edit))
+     (t
+      (keyboard-quit))))
 
-;;; Basic behaviour
-
-(use-package emacs
-  :ensure nil
-  :bind
-  (("C-g" . #'prot/keyboard-quit-dwim)
-   ("M-i" . imenu)
-   ("M-o" . other-window)
-   ("C-x C-b" . ibuffer))
-  :config
-  (setq-default indent-tabs-mode nil)
-  :custom
-  ;; Smooth scrolling
-  (pixel-scroll-precision-mode 1)
+  (setq display-line-numbers-type 'relative)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  :init
+  ;; UI inits
+  ;; FIXME (set-window-margins (selected-window) 2 2)
+  (tooltip-mode nil)
+  (select-frame-set-input-focus (selected-frame))
   ;; Better default modes
   (electric-pair-mode t)
   (show-paren-mode 1)
@@ -69,13 +129,13 @@ The DWIM behaviour of this command is as follows:
   (savehist-mode t)
   (recentf-mode t)
   (global-auto-revert-mode t)
-  ;; imenu configuration: https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html
-  (imenu-flatten 'group)
-  (imenu-auto-rescan t)
-  (imenu-auto-rescan-maxout (* 1024 1024))
-  (imenu-max-index-time 2))
+  (winner-mode t)
+  ;; open list of recent files on startup
+  (recentf-open-files))
+  
 
-(use-package emacs-lisp-mode
+
+(use-package elisp-mode
   :ensure nil
   :config
   (add-hook 'emacs-lisp-mode-hook #'imenu-add-menubar-index))
@@ -122,15 +182,6 @@ The DWIM behaviour of this command is as follows:
   :config
   (setq dired-subtree-use-backgrounds nil))
 
-(use-package trashed
-  :ensure t
-  :commands (trashed)
-  :config
-  (setq trashed-action-confirmer 'y-or-n-p)
-  (setq trashed-use-header-line t)
-  (setq trashed-sort-key '("Date deleted" . t))
-  (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
-
 (use-package which-key
   :ensure nil
   :config
@@ -138,6 +189,10 @@ The DWIM behaviour of this command is as follows:
 
 (use-package org
   :ensure nil
+  :custom
+  (org-startup-folded t) ; start up folded for speed
+  (org-hide-emphasis-markers t) ; don't show markers for bold, underline etc.
+  ;; (org-pretty-entities t) ; use UTF8 characters
   :config
   (add-hook 'org-mode-hook #'imenu-add-menubar-index))
 
@@ -181,5 +236,12 @@ The DWIM behaviour of this command is as follows:
   ;; Read the doc string of `denote-journal-title-format'.
   (setq denote-journal-title-format 'day-date-month-year))
 
+(use-package org-mac-link
+  :ensure t
+  :bind
+  (:map org-mode-map
+        ("C-c l l g m" . org-mac-link-mail-insert-selected)))
 
+(provide 'init)
+;;; init.el ends here
 
