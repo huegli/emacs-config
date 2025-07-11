@@ -156,11 +156,33 @@ The DWIM behaviour of this command is as follows:
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))
 
-;;; The file manager (Dired)
+(use-package casual
+  :ensure t
+  :bind
+  (("C-o" . #'casual-editkit-main-tmenu)))
+
+
+(use-package help
+  :ensure nil
+  :after casual
+  :bind
+  (:map help-mode-map
+        ("C-o" . #'casual-help-tmenu)))
+
+(use-package ibuffer
+  :ensure nil
+  :after casual
+  :bind
+  (:map ibuffer-mode-map
+        ("C-o" . #'casual-ibuffer-tmenu)))
 
 (use-package dired
   :ensure nil
+  :after casual
   :commands (dired)
+  :bind
+  (:map dired-mode-map
+        ("C-o" . #'casual-dired-tmenu))
   :hook
   ((dired-mode . dired-hide-details-mode)
    (dired-mode . hl-line-mode))
