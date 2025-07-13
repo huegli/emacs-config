@@ -38,6 +38,31 @@
 
 ;;; Basic behaviour
 
+;; helper function
+(defun prot/keyboard-quit-dwim ()
+  "Do-What-I-Mean behaviour for a general `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open.  Whereas we want it to close the
+minibuffer, even without explicitly focusing it.
+
+The DWIM behaviour of this command is as follows:
+
+- When the region is active, disable it.
+- When a minibuffer is open, but not focused, close the minibuffer.
+- When the Completions buffer is selected, close it.
+- In every other case use the regular `keyboard-quit'."
+  (interactive)
+  (cond
+   ((region-active-p)
+    (keyboard-quit))
+   ((derived-mode-p 'completion-list-mode)
+    (delete-completion-window))
+   ((> (minibuffer-depth) 0)
+    (abort-recursive-edit))
+   (t
+    (keyboard-quit))))
+
 (use-package emacs
   :ensure nil
   :bind
@@ -46,8 +71,6 @@
    ("M-o" . other-window)
    ("M-g r" . recentf-open-files)
    ("C-x C-b" . ibuffer))
-  :config
-  (setq-default indent-tabs-mode nil)
   :custom
   ;; Smooth scrolling
   (pixel-scroll-precision-mode 1)
@@ -91,32 +114,7 @@
   (imenu-auto-rescan-maxout (* 1024 1024))
   (imenu-max-index-time 2)
   :config
-  (defun prot/keyboard-quit-dwim ()
-    "Do-What-I-Mean behaviour for a general `keyboard-quit'.
-
-The generic `keyboard-quit' does not do the expected thing when
-the minibuffer is open.  Whereas we want it to close the
-minibuffer, even without explicitly focusing it.
-
-The DWIM behaviour of this command is as follows:
-
-- When the region is active, disable it.
-- When a minibuffer is open, but not focused, close the minibuffer.
-- When the Completions buffer is selected, close it.
-- In every other case use the regular `keyboard-quit'."
-    (interactive)
-    (cond
-     ((region-active-p)
-      (keyboard-quit))
-     ((derived-mode-p 'completion-list-mode)
-      (delete-completion-window))
-     ((> (minibuffer-depth) 0)
-      (abort-recursive-edit))
-     (t
-      (keyboard-quit))))
-
-  (setq display-line-numbers-type 'relative)
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (setq-default indent-tabs-mode nil)
   :init
   ;; UI inits
   ;; FIXME (set-window-margins (selected-window) 2 2)
@@ -133,7 +131,12 @@ The DWIM behaviour of this command is as follows:
   ;; open list of recent files on startup
   (recentf-open-files))
   
-
+(use-package display-line-numbers
+  :ensure nil
+  :custom
+  (display-line-numbers-type 'relative)
+  :config
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
 (use-package elisp-mode
   :ensure nil
@@ -158,6 +161,11 @@ The DWIM behaviour of this command is as follows:
 
 (use-package casual
   :ensure t
+  :commands
+  (casual-editkit-main-tmenu
+   casual-help-tmenu
+   casual-ibuffer-tmenu
+   casual-dired-tmenu)
   :bind
   (("C-o" . #'casual-editkit-main-tmenu)))
 
@@ -200,9 +208,7 @@ The DWIM behaviour of this command is as follows:
     ("<tab>" . dired-subtree-toggle)
     ("TAB" . dired-subtree-toggle)
     ("<backtab>" . dired-subtree-remove)
-    ("S-TAB" . dired-subtree-remove))
-  :config
-  (setq dired-subtree-use-backgrounds nil))
+    ("S-TAB" . dired-subtree-remove)))
 
 (use-package which-key
   :ensure nil
