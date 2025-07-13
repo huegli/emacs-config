@@ -5,4 +5,7 @@ history
 auto-save-list
 url/**
 recentf.eld
-transient/history.el
+transient/*
+image-dired/*
+places.eld
+projects.eld
