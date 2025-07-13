@@ -159,6 +159,18 @@ The DWIM behaviour of this command is as follows:
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))
 
+(use-package flymake
+  :ensure nil
+  :defer t
+  :hook (prog-mode-hook . flymake-mode)
+  :bind
+  (:map flymake-mode-map
+        ("M-p" . flymake-goto-prev-error)
+        ("M-n" . flymake-goto-next-error)
+        ("C-c ! n" . flymake-goto-next-error)
+        ("C-c ! p" . flymake-goto-prev-error)
+        ("C-c ! l" . flymake-show-buffer-diagnostics)))
+
 (use-package casual
   :ensure t
   :commands
