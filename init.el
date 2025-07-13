@@ -155,6 +155,11 @@ The DWIM behaviour of this command is as follows:
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
+(use-package prism
+  :ensure t
+  :vc (:url "https://github.com/alphapapa/prism.el.git"
+            :rev :v0.3.5))
+
 (use-package savehist
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))
