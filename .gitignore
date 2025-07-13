@@ -5,3 +5,4 @@ history
 auto-save-list
 url/**
 recentf.eld
+transient/history.el
