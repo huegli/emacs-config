@@ -155,6 +155,7 @@ The DWIM behaviour of this command is as follows:
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
+;;; https://github.com/alphapapa/prism.el/tree/master?tab=readme-ov-file
 (use-package prism
   :ensure t
   :vc (:url "https://github.com/alphapapa/prism.el.git"
@@ -246,6 +247,27 @@ The DWIM behaviour of this command is as follows:
   :bind
   (:map org-mode-map
         ("C-c l l g m" . org-mac-link-mail-insert-selected)))
+
+(use-package gptel
+  :ensure t
+  ;; :commands
+  ((gptel-make-openai)
+   (gptel-make-anthropic)
+   (gptel-make-perplexity))
+  :custom
+  (gptel-default-mode 'org-mode)
+  :config
+  (setq gptel-model 'sonar
+        gptel-backend
+        (gptel-make-perplexity "Perplexity" :key gptel-api-key :stream t))
+  (gptel-make-anthropic "Claude" :key gptel-api-key :stream t)
+  (gptel-make-openai "OpenRouter"
+    :host "openrouter.ai"
+    :endpoint "/api/v1/chat/completions"
+    :stream t
+    :key gptel-api-key
+    :models '(openai/gpt-4.1-mini
+              google/gemini-2.5-flash)))
 
 (provide 'init)
 ;;; init.el ends here
