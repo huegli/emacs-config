@@ -26,10 +26,10 @@
 
 ;;; Mac OSX Stuff
 (when (eq system-type 'darwin)
-  
+
   ;; Prevent macOS from creating new frames
   (setq ns-pop-up-frames nil)
-  
+
   ;; Improve font rendering
   (setq ns-use-thin-smoothing t)
 
@@ -130,7 +130,7 @@ The DWIM behaviour of this command is as follows:
   (winner-mode t)
   ;; open list of recent files on startup
   (recentf-open-files))
-  
+
 (use-package display-line-numbers
   :ensure nil
   :custom
@@ -228,6 +228,14 @@ The DWIM behaviour of this command is as follows:
     ("<backtab>" . dired-subtree-remove)
     ("S-TAB" . dired-subtree-remove)))
 
+(use-package eat
+  :ensure t
+  :defer t)
+
+(use-package vterm
+  :ensure t
+  :defer t)
+
 (use-package which-key
   :ensure nil
   :config
@@ -250,25 +258,37 @@ The DWIM behaviour of this command is as follows:
 
 (use-package gptel
   :ensure t
-  ;; :commands
-  ((gptel-make-openai)
-   (gptel-make-anthropic)
-   (gptel-make-perplexity))
+  :defer t
+  :commands
+  gptel-make-openai
+  gptel-make-anthropic
+  gptel-make-perplexity
+  :defines
+  gptel-model
+  gptel-backend
   :custom
   (gptel-default-mode 'org-mode)
   :config
   (setq gptel-model 'sonar
-        gptel-backend
-        (gptel-make-perplexity "Perplexity" :key gptel-api-key :stream t))
-  (gptel-make-anthropic "Claude" :key gptel-api-key :stream t)
+        gptel-backend (gptel-make-perplexity "Perplexity" :stream t))
+  (gptel-make-anthropic "Claude" :stream t)
   (gptel-make-openai "OpenRouter"
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
     :stream t
-    :key gptel-api-key
     :models '(openai/gpt-4.1-mini
               google/gemini-2.5-flash)))
 
+
+(use-package claude-code
+  :ensure t
+  :defer t
+  :commands
+  (claude-code-mode)
+  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+  :config
+  (claude-code-mode)
+  :bind-keymap ("C-c c" . claude-code-command-map))
+
 (provide 'init)
 ;;; init.el ends here
-
