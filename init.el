@@ -131,6 +131,35 @@ The DWIM behaviour of this command is as follows:
   ;; open list of recent files on startup
   (recentf-open-files))
 
+(use-package modus-themes
+  :ensure t
+  :custom
+  ;; Enable bold & italic globally
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  ;; Optionally, customize faces for prism.el below
+  :config
+  (load-theme 'modus-vivendi :no-confirm))
+
+;; Set default font to MonoLisa
+(set-face-attribute 'default nil
+                    :family "MonoLisa"
+                    :weight 'regular
+                    :slant 'normal
+                    :height 150) ;; adjust as preferred
+
+;; Set font for italic faces with "Light Italic" slant
+(set-face-attribute 'italic nil
+                    :family "MonoLisa"
+                    :weight 'light
+                    :slant 'italic)
+
+;; Set font for bold faces with "Bold Italic" slant
+(set-face-attribute 'bold nil
+                    :family "MonoLisa"
+                    :weight 'bold
+                    :slant 'italic)
+
 (use-package display-line-numbers
   :ensure nil
   :custom
@@ -260,24 +289,29 @@ The DWIM behaviour of this command is as follows:
   :ensure t
   :defer t
   :commands
-  gptel-make-openai
-  gptel-make-anthropic
-  gptel-make-perplexity
-  :defines
-  gptel-model
-  gptel-backend
+  (gptel-make-openai  gptel-make-anthropic gptel-make-perplexity
+                      gptel-get-backend)
+  :defines gptel-backend
   :custom
   (gptel-default-mode 'org-mode)
   :config
-  (setq gptel-model 'sonar
-        gptel-backend (gptel-make-perplexity "Perplexity" :stream t))
-  (gptel-make-anthropic "Claude" :stream t)
+  (gptel-make-perplexity "Perplexity"
+    :key (auth-source-pick-first-password
+          :host "api.perplexity.ai")
+    :stream t)
+  (gptel-make-anthropic "Claude"
+    :key (auth-source-pick-first-password
+          :host "api.anthropic.com")
+    :stream t)
   (gptel-make-openai "OpenRouter"
     :host "openrouter.ai"
     :endpoint "/api/v1/chat/completions"
+    :key (auth-source-pick-first-password
+          :host "openrouter.ai")
     :stream t
     :models '(openai/gpt-4.1-mini
-              google/gemini-2.5-flash)))
+              google/gemini-2.5-flash))
+  (setq gptel-backend (gptel-get-backend "Perplexity")))
 
 
 (use-package claude-code
