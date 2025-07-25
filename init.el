@@ -9,20 +9,9 @@
 
 ;;; Code:
 
+;;; custom ocnfiguration
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-is-missing)
-
-;;; Set up the package manager
-
-(require 'package)
-(package-initialize)
-
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-
-(add-to-list 'display-buffer-alist
-             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
-               (display-buffer-no-window)
-               (allow-no-window . t)))
 
 ;;; Mac OSX Stuff
 (when (eq system-type 'darwin)
@@ -137,7 +126,6 @@ The DWIM behaviour of this command is as follows:
   ;; Enable bold & italic globally
   (modus-themes-italic-constructs t)
   (modus-themes-bold-constructs t)
-  ;; Optionally, customize faces for prism.el below
   :config
   (load-theme 'modus-vivendi :no-confirm))
 
