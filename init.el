@@ -174,9 +174,7 @@ The DWIM behaviour of this command is as follows:
 
 ;;; https://github.com/alphapapa/prism.el/tree/master?tab=readme-ov-file
 (use-package prism
-  :ensure t
-  :vc (:url "https://github.com/alphapapa/prism.el.git"
-            :rev :v0.3.5))
+  :ensure t)
 
 (use-package savehist
   :ensure nil ; it is built-in
@@ -303,11 +301,9 @@ The DWIM behaviour of this command is as follows:
 
 
 (use-package claude-code
-  :ensure t
+  :ensure (:type git :host github :repo "stevemolitor/claude-code.el" :branch "main" :depth 1
+                   :files ("*.el" (:exclude "images/*")))
   :defer t
-  :commands
-  (claude-code-mode)
-  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
   :config
   (claude-code-mode)
   :bind-keymap ("C-c c" . claude-code-command-map))
