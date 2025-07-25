@@ -1,4 +1,4 @@
-;;; init.el --- Emacs Configuration for my Home Macbook Pro  --- Init  -*- lexical-binding: t; -*-
+;;; init.el --- Personal configuration file for my Home Macbook Pro -*- lexical-binding: t; -*-
 ;;
 ;; Author: Nikolai Schlegel
 ;;

@@ -1,4 +1,4 @@
-;;; early-init.el --- Emacs Configuration for my Home Macbook Pro  --- Init  -*- lexical-binding: t -*-
+;;; early-init.el --- Early Init File for Home Macbook Pro -*- lexical-binding: t; -*-
 ;;
 ;; Author: Nikolai Schlegel
 ;;
@@ -8,6 +8,11 @@
 ;;
 
 ;;; Code:
+
+;;; Fix the PATH
+;;; https://github.com/d12frosted/homebrew-emacs-plus/issues/733
+(setenv "PATH" "/opt/homebrew/Cellar/pyenv-virtualenv/1.2.4/shims:/Users/nikolai/.pyenv/shims:/Users/nikolai/.local/bin:/Users/nikolai/.pyenv/bin:/opt/homebrew/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin")
+(setq exec-path (split-string (getenv "PATH") path-separator))
 
 ;;; Set up the package manager
 
