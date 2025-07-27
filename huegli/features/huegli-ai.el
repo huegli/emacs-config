@@ -34,9 +34,9 @@
 
 
 (use-package claude-code
-  :ensure (:type git :host github :repo "stevemolitor/claude-code.el" :branch "main" :depth 1
-                   :files ("*.el" (:exclude "images/*")))
+  :ensure t
   :defer t
+  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
   :config
   (claude-code-mode)
   :bind-keymap ("C-c c" . claude-code-command-map))

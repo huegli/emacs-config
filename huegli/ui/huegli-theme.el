@@ -34,7 +34,11 @@
 
 ;;; https://github.com/alphapapa/prism.el/tree/master?tab=readme-ov-file
 (use-package prism
-  :ensure t)
+  :ensure t
+  :defer t
+  :bind
+  (("C-c t p" . prism-mode)
+   ("C-c t P" . prism-randomize-colors)))
 
 (provide 'huegli-theme)
 ;;; huegli-theme.el ends here

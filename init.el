@@ -9,9 +9,24 @@
 
 ;;; Code:
 
+
 ;;; custom ocnfiguration
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-is-missing)
+
+;;; Package Management & Configuration
+;;; https://whhone.com/emacs-config/#package-management
+(use-package package
+  :config (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+
+(use-package use-package
+  :config
+  (setq use-package-always-ensure t
+        use-package-always-defer t
+        use-package-hook-name-suffix nil
+        use-package-verbose t))
+;; for :diminish support (hiding minor modes in mode line)
+(use-package diminish)
 
 ;;; Mac OSX Stuff
 (when (eq system-type 'darwin)
