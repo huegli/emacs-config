@@ -37,8 +37,21 @@
   :ensure t
   :defer t
   :bind
-  (("C-c t p" . prism-mode)
-   ("C-c t P" . prism-randomize-colors)))
-
+  (("C-c t p" . prism-mode))
+  :custom
+  (prism-parens t)
+  (prism-num-faces 4)
+  :config
+  (prism-set-colors
+    :parens-fn (lambda (color)
+                       (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
+    :desaturations '(0) ; do not change---may lower the contrast ratio
+    :lightens '(0)      ; same
+    :colors (modus-themes-with-colors
+              (list blue
+                    magenta
+                    magenta-cooler
+                    green-warmer))))
+  
 (provide 'huegli-theme)
 ;;; huegli-theme.el ends here
