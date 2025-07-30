@@ -6,16 +6,7 @@
 
 (use-package eat
   :ensure t
-  :defer t
-  :bind
-  (:map eat-mode-map
-        ("C-c C-e" . eat-emacs-mode)
-        ("C-c M-d" . eat-char-mode)
-        ("C-c C-j" . eat-semi-char-mode))
-  :custom
-  (eat-buffer-name "*eat*")
-  (eat-kill-buffer-on-exit t)
-  (eat-enable-mouse t))
+  :defer t)
 
 (use-package vterm
   :ensure t

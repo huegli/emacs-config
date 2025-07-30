@@ -6,7 +6,6 @@
 
 (use-package display-line-numbers
   :ensure nil
-  :demand t
   :custom
   (display-line-numbers-type 'relative)
   :config
@@ -16,15 +15,16 @@
   :ensure nil
   :hook (after-init . delete-selection-mode))
 
-(use-package nerd-icons)
+(use-package nerd-icons
+  :ensure t)
 
 (use-package nerd-icons-dired
+  :ensure t
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
 (use-package which-key
   :ensure nil
-  :demand t
   :config
   (which-key-mode))
 

@@ -5,14 +5,13 @@
 ;;; Code:
 
 (use-package modus-themes
-  :ensure nil
-  :commands (modus-themes-with-colors)
+  :ensure t
   :custom
   ;; Enable bold & italic globally
   (modus-themes-italic-constructs t)
   (modus-themes-bold-constructs t)
   :config
-  (load-theme 'modus-operandi :no-confirm))
+  (load-theme 'modus-vivendi :no-confirm))
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
@@ -37,7 +36,6 @@
 (use-package prism
   :ensure t
   :defer t
-  :commands (prism-set-colors prism-blend)
   :bind
   (("C-c t p" . prism-mode))
   :custom
@@ -54,10 +52,6 @@
                     magenta
                     magenta-cooler
                     green-warmer))))
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-
+  
 (provide 'huegli-theme)
 ;;; huegli-theme.el ends here

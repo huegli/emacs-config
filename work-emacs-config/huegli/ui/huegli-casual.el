@@ -5,6 +5,7 @@
 ;;; Code:
 
 (use-package casual
+  :ensure t
   :commands
   (casual-editkit-main-tmenu
    casual-help-tmenu
