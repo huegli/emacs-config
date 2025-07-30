@@ -18,6 +18,7 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;; Tweak the looks of Emacs
+
 (menu-bar-mode 1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -32,13 +33,9 @@
           (lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
 ;; Load themes early to avoid flickering during startup (you need a built-in theme, though)
-;; FIXME
-;; (load-theme 'modus-vivendi t)
+(load-theme 'modus-vivendi t)
 
 (setq inhibit-startup-screen t)
-
-;; Load themes early to avoid flickering during startup (you need a built-in theme, though)
-(load-theme 'modus-vivendi t)
 
 ;; tweak native compilation settings
 (setq native-comp-speed 2)

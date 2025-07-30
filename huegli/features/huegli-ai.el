@@ -32,10 +32,10 @@
               google/gemini-2.5-flash))
   (setq gptel-backend (gptel-get-backend "Perplexity")))
 
-
 (use-package claude-code
   :ensure t
   :defer t
+  :commands (claude-code-mode)
   :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
   :config
   (claude-code-mode)
