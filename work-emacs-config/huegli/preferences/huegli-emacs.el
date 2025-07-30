@@ -31,6 +31,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package emacs
   :ensure nil
+  :demand t
   :bind
   (("C-g" . #'prot/keyboard-quit-dwim)
    ("M-i" . imenu)

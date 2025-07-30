@@ -11,7 +11,7 @@
 
 ;;; Fix the PATH
 ;;; https://github.com/d12frosted/homebrew-emacs-plus/issues/733
-(setenv "PATH" "/opt/homebrew/Cellar/pyenv-virtualenv/1.2.4/shims:/Users/nikolai/.pyenv/shims:/Users/nikolai/.local/bin:/Users/nikolai/.pyenv/bin:/opt/homebrew/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin")
+(setenv "PATH" "/Users/nikolai/.pyenv/shims:/Users/nikolai/.local/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin")
 (setq exec-path (split-string (getenv "PATH") path-separator))
 
 ;; Always start Emacs and new frames maximized
