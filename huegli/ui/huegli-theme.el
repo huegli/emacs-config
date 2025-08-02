@@ -47,15 +47,19 @@
   (prism-num-faces 4)
   :config
   (prism-set-colors
-    :parens-fn (lambda (color)
-                       (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
-    :desaturations '(0) ; do not change---may lower the contrast ratio
-    :lightens '(0)      ; same
-    :colors (modus-themes-with-colors
-              (list blue
-                    magenta
-                    magenta-cooler
-                    green-warmer))))
+   :parens-fn (lambda (color)
+                (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
+   :desaturations '(0) ; do not change---may lower the contrast ratio
+   :lightens '(0)      ; same
+   :colors (modus-themes-with-colors
+             (list blue
+                   magenta
+                   magenta-cooler
+                   green-warmer))))
+
+(use-package kanata-kbd-mode
+  :load-path "~/.config/emacs/packages/kanata-kbd-mode"
+  :mode ("\\.kbd\\'" . kanata-kbd-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

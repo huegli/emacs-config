@@ -1,0 +1,3 @@
+[submodule "packages/kanata-kbd-mode"]
+	path = packages/kanata-kbd-mode
+	url = https://github.com/chmouel/kanata-kbd-mode.git
