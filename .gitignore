@@ -10,3 +10,5 @@ transient/*
 image-dired/*
 places.eld
 projects.eld
+bookmarks.eld
+tramp
