@@ -35,15 +35,26 @@
 
 (use-package ibuffer
   :ensure nil
+  :hook
+  (ibuffer-mode . ibuffer-auto-mode)
   :bind
   (:map ibuffer-mode-map
-        ("C-o" . #'casual-ibuffer-tmenu)))
+        ("C-o" . #'casual-ibuffer-tmenu)
+        ("F" . #'casual-ibuffer-filter-tmenu)
+        ("S" . #'casual-ibuffer-sortby-tmenu)
+        ("{" . #'ibuffer-backwards-next-marked)
+        ("}" . #'ibuffer-forward-next-marked)
+        ("[" . #'ibuffer-backward-filter-group)
+        ("]" . #'ibuffer-forward-filter-group)
+        ("$" . #'ibuffer-toggle-filter-group)))
 
 (use-package dired
   :ensure nil
   :bind
   (:map dired-mode-map
         ("C-o" . #'casual-dired-tmenu)))
+
+
 
 (use-package Info
   :ensure nil
@@ -55,7 +66,6 @@
              Info-next
              Info-search)
   :init
-  (add-hook 'Info-mode-hook #'hl-line-mode)
   (add-hook 'Info-mode-hook #'scroll-lock-mode)
   :bind
   (:map Info-mode-map

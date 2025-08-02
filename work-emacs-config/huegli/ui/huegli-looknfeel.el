@@ -32,5 +32,10 @@
   :hook
   emacs-lisp-mode)
 
+(use-package hl-line-mode
+  :ensure nil
+  :hook
+  (Info-mode ibuffer-mode prog-mode))
+
 (provide 'huegli-looknfeel)
 ;;; huegli-looknfeel.el ends here
