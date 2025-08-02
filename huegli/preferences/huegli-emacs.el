@@ -38,6 +38,8 @@ The DWIM behaviour of this command is as follows:
    ("M-o" . other-window)
    ("M-g r" . recentf-open-files)
    ("C-x C-b" . ibuffer))
+  :hook
+  ((text-mode-hook org-mode-hook) . visual-line-mode)
   :custom
   ;; Smooth scrolling
   (pixel-scroll-precision-mode 1)
@@ -94,9 +96,7 @@ The DWIM behaviour of this command is as follows:
   (savehist-mode t)
   (recentf-mode t)
   (global-auto-revert-mode t)
-  (winner-mode t)
-  ;; open list of recent files on startup
-  (recentf-open-files))
+  (winner-mode t))
 
 (provide 'huegli-emacs)
 ;;; huegli-emacs.el ends here

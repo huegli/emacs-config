@@ -4,6 +4,12 @@
 
 ;;; Code:
 
+(use-package desktop
+  :ensure nil
+  :demand t
+  :config
+  (desktop-save-mode t))
+
 (use-package savehist
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))

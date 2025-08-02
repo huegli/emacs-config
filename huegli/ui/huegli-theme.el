@@ -7,6 +7,8 @@
 (use-package modus-themes
   :ensure nil
   :commands (modus-themes-with-colors)
+  :bind
+  ("C-c t t" . modus-themes-toggle)
   :custom
   ;; Enable bold & italic globally
   (modus-themes-italic-constructs t)
