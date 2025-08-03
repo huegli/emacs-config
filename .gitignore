@@ -12,3 +12,7 @@ places.eld
 projects.eld
 bookmarks.eld
 tramp
+.DS_Store
+.emacs.desktop
+.emacs.desktop.lock
+.org-id-locations
