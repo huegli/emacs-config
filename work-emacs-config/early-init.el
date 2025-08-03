@@ -40,6 +40,28 @@
 ;; tweak native compilation settings
 (setq native-comp-speed 2)
 
+;; From Emacs Solo: https://github.com/LionyxML/emacs-solo/
+;; Better Window Management handling
+(setq frame-resize-pixelwise t
+      frame-inhibit-implied-resize t
+      frame-title-format
+      '(:eval
+        (let ((project (project-current)))
+          (if project
+              (concat "Emacs - [p] "
+                      (file-name-nondirectory (directory-file-name (project-root project))))
+            (concat "Emacs - " (buffer-name))))))
+
+(when (eq system-type 'darwin)
+  (setq ns-use-proxy-icon nil))
+
+(setq inhibit-compacting-font-caches t)
+
+;; Avoid raising the *Messages* buffer if anything is still without
+;; lexical bindings
+(setq warning-minimum-level :error)
+(setq warning-suppress-types '((lexical-binding)))
+
 ;; From Mastering Emacs, https://www.masteringemacs.org/article/spotlight-use-package-a-declarative-configuration-tool
 
 ;; need to set this before first use-package
