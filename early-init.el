@@ -33,6 +33,7 @@
           (lambda () (setq gc-cons-threshold (* 50 1024 1024))))
 
 ;; Load themes early to avoid flickering during startup (you need a built-in theme, though)
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
 (load-theme 'modus-vivendi t)
 
 (setq inhibit-startup-screen t)
