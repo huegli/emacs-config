@@ -45,5 +45,42 @@
   (:map org-mode-map
         ("C-c l l g m" . org-mac-link-mail-insert-selected)))
 
+(use-package denote
+  :hook (dired-mode . denote-dired-mode)
+  :init
+  :commands
+  (denote-rename-buffer-mode
+   denote-dired-rename-files
+   denote-dired-mode-in-directories)
+  :bind
+  ( :map global-map
+    ("C-c d n" . denote-open-or-create)
+    ("C-c d d" . denote-sort-dired)
+    ("C-c d r" . denote-rename-file)
+    )
+  :custom
+  ((denote-directory "~/Library/CloudStorage/Dropbox/Documents/Org/denote")
+   (denote-file-type 'org)
+   (denote-known-keywords '("emacs" "macosx" "stephanie" "mikhaila" "sandiego" "financials" "programing"))
+   (denote-date-prompt-use-org-read-date t)
+   (denote-dired-directories-include-subdirectories t)
+   (denote-dired-directories
+    '("~/Library/CloudStorage/Dropbox/Documents/Org/denote"
+      "~/Library/CloudStorage/Dropbox/ScanSnap/Documents"
+      "~/Desktop"
+      "~/Downloads")))
+  :config
+  (denote-rename-buffer-mode 1))
+
+;; Denote specific Dired configuration
+(use-package dired
+  :ensure nil
+  :bind (
+         :map dired-mode-map
+         ("C-c C-d C-r" . #'denote-dired-rename-files)
+         )
+  :config
+  (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories))
+
 (provide 'huegli-org)
 ;;; huegli-org.el ends here
