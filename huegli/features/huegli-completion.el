@@ -14,30 +14,39 @@
               ("C-j" . exit-minibuffer)) ;; So we can exit commands like `multi-file-replace-regexp-as-diff'
   :hook
   (after-init-hook . (lambda ()
-                       (fido-mode -1)
-                       (icomplete-vertical-mode 1)))
+                       (icomplete-mode 1)))
+  :custom
+  (icomplete-hide-common-prefix t)
+  (icomplete-prospects-height 8)
+  (icomplete-separator " . ")
+  (icomplete-in-buffer t)
   :config
-  (setq icomplete-delay-completions-threshold 0)
-  (setq icomplete-compute-delay 0)
-  (setq icomplete-show-matches-on-no-input t)
-  (setq icomplete-hide-common-prefix nil)
-  (setq icomplete-prospects-height 10)
-  (setq icomplete-separator " . ")
-  (setq icomplete-with-completion-tables t)
-  (setq icomplete-in-buffer t)
-  (setq icomplete-max-delay-chars 0)
-  (setq icomplete-scroll t)
-
   (if icomplete-in-buffer
       (advice-add 'completion-at-point
                   :after #'minibuffer-hide-completions)))
 
+;; See https://eshelyaron.com/posts/2023-11-17-completion-preview-in-emacs.html
+(use-package completion-preview
+  :ensure nil
+  :hook
+  (prog-mode text-mode))
 
-(use-package orderless
+(use-package minibuffer
+  :ensure nil
   :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-ignore-case t)
+  (completions-detailed t)
+  (completion-cycle-threshold 2)
+  (completion-styles '(basic partial-completion flex initials))
+  (completion-auto-help 'always)
+  (completion-auto-select 'second-tab)
+  (completion-show-help nil)
+  (completions-max-height 20)
+  (completions-header-format nil)
+  (completions-format 'one-column)
+  (enable-recursive-minibuffers t)
+  (read-file-name-completion-ignore-case t)
+  (read-buffer-completion-ignore-case t))
 
 (provide 'huegli-completion)
 ;;; huegli-completion.el ends here

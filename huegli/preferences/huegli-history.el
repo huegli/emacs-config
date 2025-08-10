@@ -8,7 +8,7 @@
   :ensure nil
   :demand t
   :custom
-  ;; (desktop-restore-frames nil)
+  (desktop-restore-frames nil)
   (desktop-restore-eager 10)
   :config
   (desktop-save-mode t))

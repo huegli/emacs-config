@@ -57,10 +57,6 @@ The DWIM behaviour of this command is as follows:
   (kill-do-not-save-duplicates t) ; avoid multiple entries in the kill ring that are the same
   (display-line-numbers-width 3) ; mininum width for line numbers
   (display-line-numbers-widen t) ; don't change line numbers for narrowing
-  ;; basic completion settings
-  (completion-ignore-case t)
-  (completions-detailed t)
-  (completion-cycle-threshold 5)
   ;; no sound or visual bell
   (ring-bell-function 'ignore)
   (visible-bell nil)
@@ -94,6 +90,7 @@ The DWIM behaviour of this command is as follows:
   (show-paren-mode 1)
   (save-place-mode t)
   (savehist-mode t)
+  (repeat-mode t)
   (recentf-mode t)
   (global-auto-revert-mode t)
   (winner-mode t))
