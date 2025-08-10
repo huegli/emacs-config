@@ -16,3 +16,8 @@ tramp
 .emacs.desktop
 .emacs.desktop.lock
 .org-id-locations
+bookmarks
+places
+recentf
+detached/
+eshell/
