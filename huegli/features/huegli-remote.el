@@ -19,9 +19,16 @@
          ;; Replace built in completion of sessions with `consult'
          ;; ([remap detached-open-session] . detached-consult-session)
          )
-  :custom ((detached-show-output-on-attach t)
-           (detached-terminal-data-command system-type)))
+  :custom
+  ((show-output-on-attach t)
+   (detached-terminal-data-command system-type)
+   (detached-notification-function #'detached-extra-alert-notification)))
 
+;; https://github.com/jwiegley/alert
+(use-package alert
+  :ensure t
+  :custom
+  (alert-default-style 'notifier)) ;; requires terminal-notifier to be installed
 
 (provide 'huegli-remote)
 ;;; huegli-remote.el ends here
