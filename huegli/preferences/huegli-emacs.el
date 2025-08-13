@@ -41,9 +41,6 @@ The DWIM behaviour of this command is as follows:
   :hook
   ((text-mode-hook org-mode-hook) . visual-line-mode)
   :custom
-  ;; Smooth scrolling
-  (pixel-scroll-precision-mode 1)
-  (pixel-scroll-precision-use-momentum t)
   ;; UI enhancements
   (inhibit-startup-messate t)
   (initial-scratch-message "")

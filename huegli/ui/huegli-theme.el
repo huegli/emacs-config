@@ -6,7 +6,10 @@
 
 (use-package modus-themes
   :ensure nil
-  :commands (modus-themes-with-colors)
+  :commands
+  (modus-themes-with-colors
+    modus-themes--retrieve-palette-value
+    modus-themes--current-theme-palette)
   :bind
   ("C-c t t" . modus-themes-toggle)
   :custom
@@ -56,6 +59,15 @@
                    magenta
                    magenta-cooler
                    green-warmer))))
+
+(use-package ultra-scroll
+  :demand t
+  :init
+  (setq scroll-conservatively 3
+        scroll-margin 0)
+  :commands (ultra-scroll-mode)
+  :config
+  (ultra-scroll-mode 1))
 
 (use-package kanata-kbd-mode
   :load-path "~/.config/emacs/packages/kanata-kbd-mode"
