@@ -66,6 +66,7 @@
   :custom
   (scroll-conservatively 3)
   (scroll-margin 0)
+  :config
   (ultra-scroll-mode 1))
 
 (use-package kanata-kbd-mode
