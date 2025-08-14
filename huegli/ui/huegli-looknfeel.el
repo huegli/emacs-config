@@ -8,9 +8,7 @@
   :ensure nil
   :demand t
   :custom
-  (display-line-numbers-type 'relative)
-  :config
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+  (global-display-line-numbers-mode nil))
 
 (use-package delsel
   :ensure nil
@@ -36,6 +34,50 @@
   :ensure nil
   :hook
   (Info-mode ibuffer-mode prog-mode))
+
+(use-package ibuffer
+  :ensure nil
+  :commands
+  (ibuffer-switch-to-saved-filter-groups)
+  :hook
+  (ibuffer-mode . ibuffer-auto-mode)
+  (ibuffer-mode . (lambda ()
+                    (ibuffer-switch-to-saved-filter-groups "default")))
+  :custom
+  ((ibuffer-show-empty-filter-groups nil)
+   (ibuffer-saved-filter-groups
+    '(("default"
+       ("org"     (or
+                   (mode . org-mode)
+                   (name . "^\\*Org Src")
+                   (name . "^\\*Org Agenda\\*$")))
+       ("tramp"   (name . "^\\*tramp.*"))
+       ("emacs"   (or
+                   (name . "^\\*scratch\\*$")
+                   (name . "^\\*Messages\\*$")
+                   (name . "^\\*Warnings\\*$")
+                   (name . "^\\*Shell Command Output\\*$")
+                   (name . "^\\*Async-native-compile-log\\*$")
+                   (mode . emacs-lisp-mode)))
+       ("ediff"   (name . "^\\*[Ee]diff.*"))
+       ("vc"      (name . "^\\*vc-.*"))
+       ("dired"   (mode . dired-mode))
+       ("terminal" (or
+                    (mode . term-mode)
+                    (mode . shell-mode)
+                    (mode . eshell-mode)))
+       ("help"    (or
+                   (name . "^\\*Help\\*$")
+                   (name . "^\\*info\\*$"))))))))
+
+;; From https://www.youtube.com/watch?v=5AzSahLmDQk
+(use-package repeat
+  :ensure nil
+  :hook
+  (after-init . repeat-mode)
+  :custom
+  (repeat-too-dangerous '(kill-this-buffer))
+  (repeat-exit-timeout 5))
 
 (provide 'huegli-looknfeel)
 ;;; huegli-looknfeel.el ends here

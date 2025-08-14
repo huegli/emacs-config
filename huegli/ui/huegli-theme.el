@@ -14,7 +14,7 @@
   (modus-themes-italic-constructs t)
   (modus-themes-bold-constructs t)
   :config
-  (load-theme 'modus-vivendi :no-confirm))
+  (load-theme 'modus-operandi :no-confirm))
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
@@ -56,6 +56,15 @@
                    magenta
                    magenta-cooler
                    green-warmer))))
+
+(use-package ultra-scroll
+  :demand t
+  :commands (ultra-scroll-mode)
+  :custom
+  (scroll-conservatively 3)
+  (scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
 
 (use-package kanata-kbd-mode
   :load-path "~/.config/emacs/packages/kanata-kbd-mode"
