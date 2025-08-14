@@ -8,9 +8,7 @@
   :ensure nil
   :demand t
   :custom
-  (display-line-numbers-type 'relative)
-  :config
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+  (global-display-line-numbers-mode nil))
 
 (use-package delsel
   :ensure nil

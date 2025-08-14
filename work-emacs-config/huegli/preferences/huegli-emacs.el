@@ -41,9 +41,6 @@ The DWIM behaviour of this command is as follows:
   :hook
   ((text-mode-hook org-mode-hook) . visual-line-mode)
   :custom
-  ;; Smooth scrolling
-  (pixel-scroll-precision-mode 1)
-  (pixel-scroll-precision-use-momentum t)
   ;; UI enhancements
   (inhibit-startup-messate t)
   (initial-scratch-message "")
@@ -55,8 +52,6 @@ The DWIM behaviour of this command is as follows:
   (use-dialog-box nil)
   (truncate-lines t)
   (kill-do-not-save-duplicates t) ; avoid multiple entries in the kill ring that are the same
-  (display-line-numbers-width 3) ; mininum width for line numbers
-  (display-line-numbers-widen t) ; don't change line numbers for narrowing
   ;; no sound or visual bell
   (ring-bell-function 'ignore)
   (visible-bell nil)

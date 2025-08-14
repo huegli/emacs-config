@@ -11,6 +11,7 @@
   ;; (org-startup-folded t) ; start up folded for speed
   ;; (org-hide-emphasis-markers t) ; don't show markers for bold, underline etc.
   ;; (org-pretty-entities t) ; use UTF8 characters
+  (org-id-link-to-org-use-id 'create-if-interactive)
   (org-startup-with-inline-images t)
   (org-id-method 'ts)
   :config
