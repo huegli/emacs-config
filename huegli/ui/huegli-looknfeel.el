@@ -4,12 +4,6 @@
 
 ;;; Code:
 
-(use-package display-line-numbers
-  :ensure nil
-  :demand t
-  :custom
-  (global-display-line-numbers-mode nil))
-
 (use-package delsel
   :ensure nil
   :hook (after-init . delete-selection-mode))
