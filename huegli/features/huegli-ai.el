@@ -4,31 +4,33 @@
 
 ;;; Code:
 
-(defvar gptel-backend)
-(defvar gptel-model)
-
-(defun huegli-gptel-config-models ()
-  "Configure Apple's HWTGenAI models."
-  (gptel-make-ollama "AppleAI"
-      :host "localhost:11211"
-      :stream t
-      :models '(gemini-2.5-flash
-                aws:anthropic.claude-3-5-haiku-20241022-v1:0
-                aws:anthropic.claude-sonnet-4-20250514-v1:0
-                gemini-2.5-pro
-                aws:anthropic.claude-opus-4-20250514-v1:0))
-  (setq gptel-backend (gptel-get-backend "AppleAI"))
-  (setq gptel-model 'aws:anthropic.claude-3-5-haiku-20241022-v1:0))
-
 (use-package gptel
   :ensure t
   :defer t
   :commands
-  (gptel-make-ollama gptel-get-backend)
+  (gptel-make-openai  gptel-make-anthropic gptel-make-perplexity
+                      gptel-get-backend)
+  :defines gptel-backend
   :custom
   (gptel-default-mode 'org-mode)
   :config
-  (huegli-gptel-config-models))
+  (gptel-make-perplexity "Perplexity"
+    :key (auth-source-pick-first-password
+          :host "api.perplexity.ai")
+    :stream t)
+  (gptel-make-anthropic "Claude"
+    :key (auth-source-pick-first-password
+          :host "api.anthropic.com")
+    :stream t)
+  (gptel-make-openai "OpenRouter"
+    :host "openrouter.ai"
+    :endpoint "/api/v1/chat/completions"
+    :key (auth-source-pick-first-password
+          :host "openrouter.ai")
+    :stream t
+    :models '(openai/gpt-4.1-mini
+              google/gemini-2.5-flash))
+  (setq gptel-backend (gptel-get-backend "Perplexity")))
 
 (use-package claude-code
   :ensure t

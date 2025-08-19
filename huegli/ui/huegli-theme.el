@@ -17,7 +17,7 @@
   (modus-themes-italic-constructs t)
   (modus-themes-bold-constructs t)
   :config
-  (load-theme 'modus-operandi :no-confirm))
+  (load-theme 'modus-vivendi :no-confirm))
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
