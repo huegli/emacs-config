@@ -106,14 +106,21 @@
   (org-node-seq-mode))
 
 (use-package org-mac-link
-:after org
-:commands org-mac-link-mail-open
-:init
-(org-link-set-parameters "message"
-                         :follow #'org-mac-link-mail-open)
-:bind
-(:map org-mode-map
-      ("C-c l l g m" . org-mac-link-mail-insert-selected)))
+  :after org
+  :commands org-mac-link-mail-open
+  :init
+  (org-link-set-parameters "message"
+                           :follow #'org-mac-link-mail-open)
+  :bind
+  (:map org-mode-map
+        ("C-c l l g m" . org-mac-link-mail-insert-selected)))
+
+(use-package markdown-mode
+  :mode ("\\.md\\'" "\\.markdown\\'")
+  :hook
+  (markdown-mode . visual-line-mode)
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
 
 (provide 'huegli-org)
 ;;; huegli-org.el ends here
