@@ -5,8 +5,6 @@
 ;;; Code:
 
 (use-package eat
-  :ensure t
-  :defer t
   :bind
   (:map eat-mode-map
         ("C-c C-e" . eat-emacs-mode)
@@ -18,8 +16,11 @@
   (eat-enable-mouse t))
 
 (use-package vterm
-  :ensure t
-  :defer t)
+  :custom
+  (vterm-shell "/opt/homebrew/bin/fish")
+  (vterm-kill-buffer-on-exit t)
+  (vterm-tramp-shells '(("ssh" "/usr/bin/tcsh"))) ; For Apple CE VM's
+  (vterm-always-compile-module t))
 
 (provide 'huegli-terminal)
 ;;; huegli-terminal.el ends here

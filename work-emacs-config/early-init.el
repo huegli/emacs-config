@@ -14,11 +14,13 @@
 (setenv "PATH" "/Users/nikolai/.pyenv/shims:/Users/nikolai/.local/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin")
 (setq exec-path (split-string (getenv "PATH") path-separator))
 
+;; No title-bar
+(add-to-list 'default-frame-alist '(undecorated . t))
+
 ;; Always start Emacs and new frames maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;; Tweak the looks of Emacs
-
 (menu-bar-mode 1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -39,21 +41,6 @@
 
 ;; tweak native compilation settings
 (setq native-comp-speed 2)
-
-;; From Emacs Solo: https://github.com/LionyxML/emacs-solo/
-;; Better Window Management handling
-(setq frame-resize-pixelwise t
-      frame-inhibit-implied-resize t
-      frame-title-format
-      '(:eval
-        (let ((project (project-current)))
-          (if project
-              (concat "Emacs - [p] "
-                      (file-name-nondirectory (directory-file-name (project-root project))))
-            (concat "Emacs - " (buffer-name))))))
-
-(when (eq system-type 'darwin)
-  (setq ns-use-proxy-icon nil))
 
 (setq inhibit-compacting-font-caches t)
 

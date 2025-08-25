@@ -60,6 +60,7 @@
 (require 'huegli-programing)
 (require 'huegli-linting)
 (require 'huegli-ai)
+(require 'huegli-remote)
 
 (provide 'init)
 ;;; init.el ends here
