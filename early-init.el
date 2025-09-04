@@ -16,7 +16,11 @@
 
 ;;; Tweak the looks of Emacs
 
-(menu-bar-mode 1)
+;; Always start Emacs and new frames maximized
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(add-to-list 'default-frame-alist '(fullscreen-restore . fullheight))
+
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
@@ -31,7 +35,7 @@
 
 ;; Load themes early to avoid flickering during startup (you need a built-in theme, though)
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
-(load-theme 'modus-vivendi t)
+(load-theme 'dracula-pro-pro t)
 
 (setq inhibit-startup-screen t)
 
