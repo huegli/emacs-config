@@ -25,9 +25,9 @@
   (use-package-always-defer t))
 
 ;; for :diminish support (hiding minor modes in mode line)
-(use-package diminish
-  :ensure nil
-  :demand t)
+;;(use-package diminish
+;;  :ensure nil
+;;  :demand t)
 
 ;;; Mac OSX Stuff
 (when (eq system-type 'darwin)
