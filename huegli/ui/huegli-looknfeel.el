@@ -73,5 +73,14 @@
   (repeat-too-dangerous '(kill-this-buffer))
   (repeat-exit-timeout 5))
 
+(use-package ultra-scroll
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
+  :commands (ultra-scroll-mode)
+  :init
+  (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
+        scroll-margin 0)        ; important: scroll-margin>0 not yet supported
+  :config
+  (ultra-scroll-mode 1))
+
 (provide 'huegli-looknfeel)
 ;;; huegli-looknfeel.el ends here
