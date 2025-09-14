@@ -18,20 +18,20 @@
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
-                    :family "MonoLisa"
+                    :family "SF Mono"
                     :weight 'regular
                     :slant 'normal
                     :height 150) ;; adjust as preferred
 
 ;; Set font for italic faces with "Light Italic" slant
 (set-face-attribute 'italic nil
-                    :family "MonoLisa"
+                    :family "SF Mono"
                     :weight 'light
                     :slant 'italic)
 
 ;; Set font for bold faces with "Bold Italic" slant
 (set-face-attribute 'bold nil
-                    :family "MonoLisa"
+                    :family "SF Mono"
                     :weight 'bold
                     :slant 'italic)
 
