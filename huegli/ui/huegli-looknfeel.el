@@ -82,5 +82,10 @@
   :config
   (ultra-scroll-mode 1))
 
+(use-package show-paren-mode
+  :ensure nil
+  :custom
+  (show-paren-style 'expression))
+
 (provide 'huegli-looknfeel)
 ;;; huegli-looknfeel.el ends here
