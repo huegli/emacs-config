@@ -6,8 +6,32 @@
 
 (use-package elisp-mode
   :ensure nil
+  :hook (emacs-lisp-mode . imenu-add-menubar-index))
+
+(use-package slime
+  :commands (slime-setup)
+  :custom
+  (inferior-lisp-program "/opt/homebrew/bin/sbcl")
   :config
-  (add-hook 'emacs-lisp-mode-hook #'imenu-add-menubar-index))
+  (slime-setup '(slime-fancy slime-quicklisp slime-asdf slime-mrepl)))
+
+(use-package python-mode
+  :ensure nil
+  :hook (python-mode . imenu-add-menubar-index))
+
+(use-package uv-mode
+  :hook (python-mode . uv-mode-auto-activate-hook))
+
+(use-package swift-mode
+  :mode "\\.swift\\'"
+  :hook (swift-mode . eglot-ensure)
+  :interpreter "swift")
+
+(use-package eglot
+  :ensure nil
+  ;; (c-mode . eglot-ensure) 
+  :config
+  (add-to-list 'eglot-server-programs '(swift-mode "sourcekit-lsp")))
 
 (provide 'huegli-programing)
 ;;; huegli-programing.el ends here
