@@ -7,6 +7,10 @@
 (use-package org
   :ensure nil
   :commands org-link-set-parameters
+  :bind
+  (
+   ("C-c l" . org-store-link)
+   ("C-c a" . org-agenda))
   :custom
   (org-directory "~/Library/CloudStorage/Dropbox/Documents/Org")
   (org-startup-folded t) ; start up folded for speed
@@ -14,6 +18,25 @@
   ;; (org-pretty-entities t) ; use UTF8 characters
   (org-startup-with-inline-images t)
   (org-id-method 'ts)
+  ;; Configure agenda files from multiple sources
+  (org-agenda-files
+   (append
+    ;; Add all .org files from the work directory recursively
+    (directory-files-recursively "/Users/nikolai/Source/Repos/GitHub/huegli/gcal2agenda" "\\.org$")
+    ;; Add the specific events & tasks files
+    '("/Users/nikolai/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org")
+    '("/Users/nikolai/Library/Mobile Documents/iCloud~com~xenodium~Journelly/Documents/Journelly.org")
+    ))
+  ;; Basic agenda configuration
+  (org-agenda-start-on-weekday nil)          ; Start agenda on current day
+  (org-agenda-span 'week)                    ; Show week view by default
+  (org-agenda-skip-scheduled-if-done t)      ; Hide completed scheduled items
+  (org-agenda-skip-deadline-if-done t)       ; Hide completed deadline items
+  (org-agenda-include-deadlines t)           ; Include deadline information
+  ;; Improve agenda display
+  (org-agenda-block-separator nil)           ; Clean separator between blocks
+  (org-agenda-compact-blocks t)              ; Compact display
+  (org-agenda-tags-column 100)               ; Position tags nicely
   :config
   (add-to-list 'org-file-apps '("\\.xlsx\\'" . system))
   (add-hook 'org-mode-hook #'imenu-add-menubar-index))
@@ -81,6 +104,9 @@
          )
   :config
   (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories))
+
+(use-package markdown-mode
+  :mode ("README\\.md" . gfm-mode))
 
 (provide 'huegli-org)
 ;;; huegli-org.el ends here
