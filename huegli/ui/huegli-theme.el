@@ -4,20 +4,20 @@
 
 ;;; Code:
 
-(use-package modus-themes
-  :ensure nil
-  :commands
-  (modus-themes-with-colors
-    modus-themes--retrieve-palette-value
-    modus-themes--current-theme-palette)
-  :bind
-  ("C-c t t" . modus-themes-toggle)
-  :custom
-  ;; Enable bold & italic globally
-  (modus-themes-italic-constructs t)
-  (modus-themes-bold-constructs t)
-  :config
-  (load-theme 'modus-vivendi :no-confirm))
+;; (use-package modus-themes
+;;   :ensure nil
+;;   :commands
+;;   (modus-themes-with-colors
+;;     modus-themes--retrieve-palette-value
+;;     modus-themes--current-theme-palette)
+;;   :bind
+;;   ("C-c t t" . modus-themes-toggle)
+;;   :custom
+;;   ;; Enable bold & italic globally
+;;   (modus-themes-italic-constructs t)
+;;   (modus-themes-bold-constructs t)
+;;   :config
+;;   (load-theme 'modus-vivendi :no-confirm))
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
@@ -50,15 +50,16 @@
   (prism-num-faces 4)
   :config
   (prism-set-colors
-   :parens-fn (lambda (color)
-                (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
-   :desaturations '(0) ; do not change---may lower the contrast ratio
-   :lightens '(0)      ; same
-   :colors (modus-themes-with-colors
-             (list blue
-                   magenta
-                   magenta-cooler
-                   green-warmer))))
+    :parens-fn (lambda (color)
+                 (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
+    :desaturations '(0) ; do not change---may lower the contrast ratio
+    :lightens '(0)))
+
+;; :colors (modus-themes-with-colors
+;;          (list blue
+;;                magenta
+;;                magenta-cooler
+;;                green-warmer))))
 
 (use-package ultra-scroll
   :demand t
