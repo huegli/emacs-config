@@ -4,20 +4,19 @@
 
 ;;; Code:
 
-;; (use-package modus-themes
-;;   :ensure nil
-;;   :commands
-;;   (modus-themes-with-colors
-;;     modus-themes--retrieve-palette-value
-;;     modus-themes--current-theme-palette)
-;;   :bind
-;;   ("C-c t t" . modus-themes-toggle)
-;;   :custom
-;;   ;; Enable bold & italic globally
-;;   (modus-themes-italic-constructs t)
-;;   (modus-themes-bold-constructs t)
-;;   :config
-;;   (load-theme 'modus-vivendi :no-confirm))
+;;; https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file#system-appearance-change
+(defun my/apply-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (progn
+              (load-theme 'dracula-pro-alucard t)
+              (custom-set-faces '(match ((t (:background "dark gray" :foreground "white smoke")))))))
+    ('dark (progn
+             (load-theme 'dracula-pro-pro t)
+             (custom-set-faces '(match ((t (:background "dark slate blue" :foreground "white smoke")))))))))
+
+(add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
 ;; Set default font to MonoLisa
 (set-face-attribute 'default nil
@@ -50,16 +49,10 @@
   (prism-num-faces 4)
   :config
   (prism-set-colors
-    :parens-fn (lambda (color)
-                 (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
-    :desaturations '(0) ; do not change---may lower the contrast ratio
-    :lightens '(0)))
-
-;; :colors (modus-themes-with-colors
-;;          (list blue
-;;                magenta
-;;                magenta-cooler
-;;                green-warmer))))
+   :parens-fn (lambda (color)
+                (prism-blend color (face-attribute 'default :background nil 'default) 0.25))
+   :desaturations '(0) ; do not change---may lower the contrast ratio
+   :lightens '(0)))
 
 (use-package ultra-scroll
   :demand t

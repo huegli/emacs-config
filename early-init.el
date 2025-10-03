@@ -14,13 +14,17 @@
 (setenv "PATH" "/Users/nikolai/.local/bin:/opt/homebrew/bin:/Applications/Emacs.app/Contents/MacOS/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin")
 (setq exec-path (split-string (getenv "PATH") path-separator))
 
-;;; Tweak the looks of Emacs
+;;; https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file#no-titlebar
+(add-to-list 'default-frame-alist '(undecorated-round . t))
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;;; Tweak the looks of Emacs
 (menu-bar-mode 1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-;; https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
+
+;;; https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
 
 ;; Temporarily increase GC threshold during startup
 (setq gc-cons-threshold most-positive-fixnum)
