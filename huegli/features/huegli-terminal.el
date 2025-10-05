@@ -4,25 +4,27 @@
 
 ;;; Code:
 
-(use-package eat
-  :ensure t
-  :defer t
-  :bind
-  (:map eat-mode-map
-        ("C-c C-e" . eat-emacs-mode)
-        ("C-c M-d" . eat-char-mode)
-        ("C-c C-j" . eat-semi-char-mode))
-  :custom
-  (eat-buffer-name "*eat*")
-  (eat-kill-buffer-on-exit t)
-  (eat-enable-mouse t))
-
 (use-package vterm
   :custom
   (vterm-shell "/opt/homebrew/bin/fish")
   (vterm-kill-buffer-on-exit t)
-  (vterm-tramp-shells '(("ssh" "/usr/bin/tcsh"))) ; For Apple CE VM's
+  (vterm-tramp-shells '(("ssh" "/opt/homebrew/bin/fish"))) ; For MacMini
   (vterm-always-compile-module t))
+
+(use-package mistty
+  :custom
+  (mistty-shell-command . ("/opt/homebrew/bin/fish"  "-i"))
+  :bind (("C-c s" . mistty)
+
+         ;; bind here the shortcuts you'd like the
+         ;; shell to handle instead of Emacs.
+         :map mistty-prompt-map
+
+         ;; fish: directory history
+         ("M-<up>" . mistty-send-key)
+         ("M-<down>" . mistty-send-key)
+         ("M-<left>" . mistty-send-key)
+         ("M-<right>" . mistty-send-key)))
 
 (provide 'huegli-terminal)
 ;;; huegli-terminal.el ends here
