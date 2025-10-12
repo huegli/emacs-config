@@ -4,16 +4,28 @@
 
 ;;; Code:
 
+(use-package treesit
+  :ensure nil
+  :demand t
+  :config
+  (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+  (add-to-list 'major-mode-remap-alist
+               '(c-or-c++-mode . c-or-c++-ts-mode)))
+
 (use-package elisp-mode
   :ensure nil
   :hook (emacs-lisp-mode . imenu-add-menubar-index))
 
 (use-package slime
-  :commands (slime-setup)
-  :custom
-  (inferior-lisp-program "/opt/homebrew/bin/sbcl")
-  :config
-  (slime-setup '(slime-fancy slime-quicklisp slime-asdf slime-mrepl)))
+  :commands
+  (slime-setup)
+  :init
+  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
+;;;  :config
+;;;  (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
+  :hook ((lisp-mode . slime-mode)
+         (inferior-lisp-mode . inferior-slime-mode)))
 
 (use-package python-mode
   :ensure nil
@@ -27,9 +39,15 @@
   :hook (swift-mode . eglot-ensure)
   :interpreter "swift")
 
+(use-package c-ts-mode
+  :ensure nil
+  :hook (c-ts-mode . eglot-ensure))
+
 (use-package eglot
   :ensure nil
-  ;; (c-mode . eglot-ensure) 
+  :hook
+  (c-mode . eglot-ensure)
+  (c-ts-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs '(swift-mode "sourcekit-lsp")))
 
