@@ -13,7 +13,9 @@
               (load-theme 'dracula-pro-alucard t)
               (custom-set-faces '(match ((t (:background "dark gray" :foreground "white smoke")))))))
     ('dark (progn
-             (load-theme 'dracula-pro-pro t)
+             (if (string-equal (system-name) "Mac-mini-M2.lan")
+                 (load-theme 'dracula-pro-lincoln t)
+               (load-theme 'dracula-pro-pro t))
              (custom-set-faces '(match ((t (:background "dark slate blue" :foreground "white smoke")))))))))
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)

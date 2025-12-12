@@ -35,7 +35,9 @@
 
 ;; Load themes early to avoid flickering during startup (you need a built-in theme, though)
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
-(load-theme 'dracula-pro-pro t)
+(if (string-equal (system-name) "Mac-mini-M2.lan")
+    (load-theme 'dracula-pro-lincoln t)
+  (load-theme 'dracula-pro-pro t))
 
 (setq inhibit-startup-screen t)
 
