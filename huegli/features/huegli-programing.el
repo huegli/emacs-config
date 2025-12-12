@@ -17,15 +17,12 @@
   :ensure nil
   :hook (emacs-lisp-mode . imenu-add-menubar-index))
 
-(use-package slime
-  :commands
-  (slime-setup)
+(use-package sly
   :init
-  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
-;;;  :config
-;;;  (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
-  :hook ((lisp-mode . slime-mode)
-         (inferior-lisp-mode . inferior-slime-mode)))
+  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
+
+(use-package geiser)
+(use-package geiser-racket)
 
 (use-package python-mode
   :ensure nil
