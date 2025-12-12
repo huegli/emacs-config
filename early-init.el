@@ -16,7 +16,6 @@
 
 ;;; https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file#no-titlebar
 (add-to-list 'default-frame-alist '(undecorated-round . t))
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;;; Tweak the looks of Emacs
 (menu-bar-mode 1)
