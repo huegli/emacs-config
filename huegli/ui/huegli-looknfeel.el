@@ -20,9 +20,9 @@
   :config
   (which-key-mode))
 
-(use-package aggressive-indent
-  :hook
-  emacs-lisp-mode)
+;; (use-package aggressive-indent
+;;   :hook
+;;   emacs-lisp-mode)
 
 (use-package hl-line-mode
   :ensure nil
@@ -86,6 +86,17 @@
   :ensure nil
   :custom
   (show-paren-style 'expression))
+
+(use-package paredit
+  :commands (enable-paredit-mode)
+  :hook ((emacs-lisp-mode . enable-paredit-mode)
+         (lisp-mode . enable-paredit-mode)
+         (lisp-interaction-mode . enable-paredit-mode)
+         (scheme-mode . enable-paredit-mode)
+         (ielm-mode . enable-paredit-mode))
+  :config
+  ;;; (define-key paredit-mode-map (kbd "RET") nil)
+  )
 
 (provide 'huegli-looknfeel)
 ;;; huegli-looknfeel.el ends here
