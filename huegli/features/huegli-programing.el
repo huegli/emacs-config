@@ -19,9 +19,18 @@
 
 (use-package sly
   :init
-  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
+  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
+  :hook (sly-mrepl-mode enable-paredit-mode)
+  :config
+  (define-key sly-mrepl-mode-map (kbd "C-<return>") #'sly-mrepl-return))
 
-(use-package geiser)
+(use-package geiser
+  :hook ((scheme-mode . geiser-mode)
+         (geiser-repl-mode . enable-paredit-mode))
+  :config
+  (setq geiser-active-implementations '(racket))
+  (define-key geiser-repl-mode-map (kbd "C-<return>") #'geiser-repl-maybe-send))
+
 (use-package geiser-racket)
 
 (use-package python-mode
